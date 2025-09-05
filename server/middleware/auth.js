@@ -11,6 +11,21 @@ const auth = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret');
+    
+    // Handle superadmin case (userId is 'superadmin' string, not ObjectId)
+    if (decoded.userId === 'superadmin') {
+      req.user = {
+        _id: 'superadmin',
+        username: decoded.username,
+        role: 'superadmin',
+        firstName: 'Super',
+        lastName: 'Admin',
+        email: 'superadmin@euroshub.com',
+        isActive: true
+      };
+      return next();
+    }
+    
     const user = await User.findById(decoded.userId).select('-password');
     
     if (!user || !user.isActive) {

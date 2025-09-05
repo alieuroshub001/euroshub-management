@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Users, FolderOpen, CheckCircle, Activity, TrendingUp, Server, Calendar, AlertCircle } from 'lucide-react'
 import UserManagement from './UserManagement'
+import SystemSettings from './SystemSettings'
 import './SuperAdminDashboard.css'
 
 function SuperAdminDashboard({ user, activeModule }) {
@@ -38,11 +39,7 @@ function SuperAdminDashboard({ user, activeModule }) {
           <p>Coming Soon</p>
         </div>
       case 'settings':
-        return <div className="module-placeholder">
-          <Server size={48} />
-          <h3>System Settings</h3>
-          <p>Coming Soon</p>
-        </div>
+        return <SystemSettings />
       default:
         return (
           <div className="dashboard-overview">
